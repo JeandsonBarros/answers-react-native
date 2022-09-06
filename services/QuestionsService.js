@@ -28,7 +28,7 @@ export async function getQuestionsByUser(page) {
     const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/by/user`, fetchData)
     const data = await response.json()
 
-    return data
+    return typeof (data) == 'string' ? [] : data
 
 }
 
@@ -46,5 +46,36 @@ export async function getQuestion(questionId) {
     const data = await response.json()
 
     return data
+
+}
+
+export async function postQuestion(question) {
+
+    try {
+
+       
+        let token = await getToken()
+        token = await JSON.parse(token)
+       
+        let fetchData = {
+            method: 'POST',
+            headers: {
+                'authorization': "Bearer " + token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(question)
+
+        }
+       
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions`, fetchData)
+        const data = await response.json() 
+
+        return data.message
+       
+
+    } catch (error) {
+        console.log(error);
+    }
 
 }

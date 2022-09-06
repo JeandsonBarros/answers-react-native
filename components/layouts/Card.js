@@ -46,6 +46,8 @@ export default function Card({ id, title, content, icon, getQuantity }) {
 
             </TouchableOpacity>
 
+            
+
         </View>);
 }
 

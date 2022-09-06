@@ -1,6 +1,7 @@
 import { TextInput, View, TouchableOpacity, Text } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { login } from '../../services/AuthService';
+import Styles from '../styles/Styles';
 
 function Login({ navigation }) {
 
@@ -24,7 +25,7 @@ function Login({ navigation }) {
             }}
         >
 
-            <Text style={{ textAlign: 'center', fontSize: 40, margin: 50 }} >
+            <Text style={{ textAlign: 'center', fontSize: 30, margin: 20 }} >
                 Questões <Text style={{ color: '#0AAD7C' }}>?</Text>
             </Text>
 
@@ -40,29 +41,13 @@ function Login({ navigation }) {
                 <Text style={{ textAlign: 'center', fontSize: 30, margin: 50 }} >Login</Text>
 
                 <TextInput
-                    style={{
-                        backgroundColor: '#F3F3F3',
-                        borderRadius: 10,
-                        padding: 5,
-                        marginHorizontal: 50,
-                        marginBottom: 20,
-                        width: '80%',
-                        height: 50
-                    }}
+                    style={Styles.input}
                     placeholder="E-mail"
                     onChangeText={setEmail}
                 />
 
                 <TextInput
-                    style={{
-                        backgroundColor: '#F3F3F3',
-                        borderRadius: 10,
-                        padding: 5,
-                        marginHorizontal: 50,
-                        marginBottom: 30,
-                        width: '80%',
-                        height: 50
-                    }}
+                    style={Styles.input}
                     placeholder="Senha"
                     secureTextEntry={true}
                     onChangeText={setPassword}

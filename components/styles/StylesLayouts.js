@@ -20,6 +20,7 @@ export default StyleSheet.create({
 
         borderRadius: 10,
         margin: 10,
+        marginHorizontal: 10,
         minWidth: '95%',
         height: 140,
         color: "#19242E"

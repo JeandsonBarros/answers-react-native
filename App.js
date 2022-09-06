@@ -7,7 +7,9 @@ import Home from './components/screens/Home';
 import Question from './components/screens/Question';
 import Login from './components/screens/Login';
 import QuestionsByUser from './components/screens/QuestionsByUser';
-
+import HeaderRight from './components/layouts/HeaderRight';
+import AddQuestion from './components/screens/AddQuestion';
+import UpdateQuestion from './components/screens/UpdateQuestion';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +22,14 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ title: 'Home' }}
+          options={({ navigation }) => ({
+            title: "Home",
+            headerStyle: {
+              backgroundColor: '#fff',
+            },
+            headerTintColor: '#1c1c1c',
+            headerRight: () => <HeaderRight navigation={navigation} />,
+          })}
         />
 
         <Stack.Screen
@@ -45,6 +54,18 @@ export default function App() {
           name="Question"
           component={Question}
           options={{ title: 'Questão' }}
+        />
+
+        <Stack.Screen
+          name="AddQuestion"
+          component={AddQuestion}
+          options={{ title: 'Nova questão' }}
+        />
+
+        <Stack.Screen
+          name="UpdateQuestion"
+          component={UpdateQuestion}
+          options={{ title: 'Editar questão' }}
         />
 
       </Stack.Navigator>

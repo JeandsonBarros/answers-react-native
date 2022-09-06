@@ -26,14 +26,14 @@ export default StyleSheet.create({
         height: 35,
         marginLeft: 10,
         marginRight: 10,
-        backgroundColor: '#F1F1F1',
+        backgroundColor: '#e6e6e6',
         flexDirection: 'row',
         borderRadius: 10,
     },
 
     textInputSearch:{
         width: '90%',
-        height: '100%'
+        height: '100%',
     },
 
     /* ============ Question Styles ============= */
@@ -67,5 +67,9 @@ export default StyleSheet.create({
     statement: {
         color: "#19242E"
     }
+
+    /* ============ Login Styles =============*/
+
+    
 
 });

@@ -23,3 +23,10 @@ export async function login(email, password) {
     return asSaveToken? data.message: "Erro ao logar"
     
 }
+
+export async function logout(){
+   
+    asDeleted= await deleteToken()
+    
+    return asDeleted 
+}
