@@ -31,7 +31,7 @@ export default StyleSheet.create({
         borderRadius: 10,
     },
 
-    textInputSearch:{
+    textInputSearch: {
         width: '90%',
         height: '100%',
     },
@@ -66,10 +66,47 @@ export default StyleSheet.create({
 
     statement: {
         color: "#19242E"
-    }
+    },
 
-    /* ============ Login Styles =============*/
+    /* ======== QuestionsByUser Styles ====== */
 
-    
+    viewEditAndDelete: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 10,
+        marginBottom: 10,
+        borderBottomColor: 'rgb(215, 215, 215)',
+        borderBottomWidth: 1,
+        paddingBottom: 10,
+    },
+
+    buttonEdit: {
+        flex: 1,
+        height: 30,
+        borderBottomStartRadius: 7,
+        borderTopStartRadius: 7,
+        backgroundColor: '#0AAD7C',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    buttonDelete: {
+        flex: 1,
+        height: 30,
+        borderBottomEndRadius: 7,
+        borderTopEndRadius: 7,
+        backgroundColor: '#ff4040',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    textButon: {
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#fff',
+        marginRight: 5
+    },
 
 });

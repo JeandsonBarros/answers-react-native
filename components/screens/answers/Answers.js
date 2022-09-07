@@ -1,7 +1,7 @@
-
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
 
 export default function Answers({route, navigation }) {
 

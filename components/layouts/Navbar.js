@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import Styles from './Styles';
+
+import Styles from './StylesLayouts';
 
 export default function Navbar({ navigation, route }) {
 

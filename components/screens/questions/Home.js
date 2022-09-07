@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-import { getAnswers } from '../../services/AnswersService';
-import { findQuestion, getAllQuestions } from '../../services/QuestionsService';
-import Card from '../layouts/Card';
-import Load from '../layouts/Load';
-import Navbar from '../layouts/Navbar';
-import StylesScreens from '../styles/StylesScreens';
+import { getAnswers } from '../../../services/AnswersService';
+import { findQuestion, getAllQuestions } from '../../../services/QuestionsService';
+import Card from '../../layouts/Card';
+import Load from '../../layouts/Load';
+import Navbar from '../../layouts/Navbar';
+import StylesScreens from './QuestionsStyles';
 
 
 export default function Home({ route, navigation }) {

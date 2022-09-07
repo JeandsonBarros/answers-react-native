@@ -1,15 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Answers from './components/screens/Answers';
-import Home from './components/screens/Home';
-import Question from './components/screens/Question';
-import Login from './components/screens/Login';
-import QuestionsByUser from './components/screens/QuestionsByUser';
+import { StyleSheet } from 'react-native';
+
 import HeaderRight from './components/layouts/HeaderRight';
-import AddQuestion from './components/screens/AddQuestion';
-import UpdateQuestion from './components/screens/UpdateQuestion';
+
+import AddQuestion from './components/screens/questions/AddQuestion';
+import Answers from './components/screens/answers/Answers';
+import Home from './components/screens/questions/Home';
+import Login from './components/screens/user/Login';
+import Question from './components/screens/questions/Question';
+import QuestionsByUser from './components/screens/questions/QuestionsByUser';
+import UpdateQuestion from './components/screens/questions/UpdateQuestion';
+import UserConfig from './components/screens/user/UserConfig';
+import UserData from './components/screens/user/UserData';
+import UserRegister from './components/screens/user/UserRegister';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +70,24 @@ export default function App() {
           name="UpdateQuestion"
           component={UpdateQuestion}
           options={{ title: 'Editar questão' }}
+        />
+
+        <Stack.Screen
+          name="UserConfig"
+          component={UserConfig}
+          options={{ title: 'Configurações da conta' }}
+        />
+        
+        <Stack.Screen
+          name="UserData"
+          component={UserData}
+          options={{ title: 'Dados da conta' }}
+        />
+
+        <Stack.Screen
+          name="UserRegister"
+          component={UserRegister}
+          options={{ title: 'Cadastro' }}
         />
 
       </Stack.Navigator>

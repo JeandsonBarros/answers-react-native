@@ -1,7 +1,9 @@
-import { View } from "react-native";
-import Navbar from '../layouts/Navbar';
-import FormQuestion from '../layouts/FormQuestion';
-import { postQuestion } from "../../services/QuestionsService";
+import { View } from 'react-native';
+
+import { postQuestion } from '../../../services/QuestionsService';
+import FormQuestion from '../../layouts/FormQuestion';
+import Navbar from '../../layouts/Navbar';
+
 function AddQuestion({ navigation, route }) {
 
     async function saveQuestion(question){

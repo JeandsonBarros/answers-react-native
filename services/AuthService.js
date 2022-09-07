@@ -1,5 +1,5 @@
 
-import { saveToken, deleteToken} from "./TokenService";
+import { saveToken, deleteToken, getToken} from "./TokenService";
 
 export async function login(email, password) {
 
@@ -26,7 +26,42 @@ export async function login(email, password) {
 
 export async function logout(){
    
-    asDeleted= await deleteToken()
+    const asDeleted = await deleteToken()
     
     return asDeleted 
+}
+
+export async function deleteAccount(email, password) {
+    try {
+
+        let token = await getToken()
+        token = await JSON.parse(token)
+       
+        let fetchData = {
+            method: 'DELETE',
+            headers: {
+                'authorization': "Bearer " + token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify({
+                 password:password 
+                })
+
+        }
+
+        console.log(fetchData);
+       
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/auth/delete/${email}`, fetchData)
+        const data = await response.json() 
+
+        console.log(data);
+
+        return data.message  
+       
+
+    } catch (error) {
+        console.log(error);
+    }
 }

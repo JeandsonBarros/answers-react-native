@@ -1,19 +1,17 @@
-import { TouchableOpacity, Text } from "react-native";
-import {logout} from "../../services/AuthService";
+import { TouchableOpacity } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
-function HeaderRight({navigation}) {
+export default function HeaderRight({navigation}) {
+
     return (
         <>
             <TouchableOpacity
-                onPress={async ()=> {
-                   
-                   logoutStatus = await logout()
-                   logoutStatus? navigation.navigate('Home') : alert("Erro ao deslogar!") 
-                }}
+                onPress={()=> navigation.navigate('UserConfig')}
             >
-                <Text>Sair</Text>
+                <Svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} fill="#19242E" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <Path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </Svg>
             </TouchableOpacity>
         </>);
 }
 
-export default HeaderRight;

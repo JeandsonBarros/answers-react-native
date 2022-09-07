@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+
 import Styles from '../styles/Styles';
 
 function FormQuestion({ buttonText, actionButton, questionUpdate }) {
@@ -35,6 +36,7 @@ function FormQuestion({ buttonText, actionButton, questionUpdate }) {
                     <TextInput
                         style={Styles.input}
                         placeholder='Matemática'
+                        value={question.matter || ''}
                         onChangeText={text => setStateQuestion(text, 'matter')}
                     />
                 </View>
@@ -44,15 +46,17 @@ function FormQuestion({ buttonText, actionButton, questionUpdate }) {
                     <TextInput
                         style={Styles.input}
                         placeholder='1+1'
+                        value={question.statement || ''}
                         onChangeText={text => setStateQuestion(text, 'statement')}
                     />
                 </View>
 
                 <View style={Styles.viewInput}>
-                    <Text style={Styles.labelInput} >Resposta (Não é obrigatório)</Text>
+                    <Text style={Styles.labelInput} >Resposta (Não é obrigatória)</Text>
                     <TextInput
                         style={Styles.input}
                         placeholder='1+1=2'
+                        value={question.answer || ''}
                         onChangeText={text => setStateQuestion(text, 'answer')}
                     />
                 </View>

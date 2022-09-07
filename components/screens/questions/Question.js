@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native'
 
-import Card from '../layouts/Card';
+import Card from '../../layouts/Card';
 import Svg, { Path } from 'react-native-svg';
-import StylesScreens from '../styles/StylesScreens';
-import { getAnswers } from '../../services/AnswersService';
-import { getQuestion } from '../../services/QuestionsService';
-import { getQuantyLikes } from '../../services/LikesService';
+import StylesScreens from './QuestionsStyles';
+import { getAnswers } from '../../../services/AnswersService';
+import { getQuestion } from '../../../services/QuestionsService';
+import { getQuantyLikes } from '../../../services/LikesService';
 
 export default function Question({ route, navigation }) {
 

@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { Animated, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, Text } from 'react-native';
 
 function Load() {
 

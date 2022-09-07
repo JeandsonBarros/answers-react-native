@@ -1,9 +1,9 @@
-
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
-import StylesLayouts from '../styles/StylesLayouts';
-import Styles from '../styles/Styles';
+
+import StylesLayouts from './StylesLayouts';
+
 
 export default function Card({ id, title, content, icon, getQuantity }) {
 
