@@ -1,19 +1,16 @@
 import { useEffect } from 'react';
 import React, { useState } from 'react';
-import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {  Text,  TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { deleteAccount, logout } from '../../../services/AuthService';
 import { asToken } from '../../../services/TokenService';
-import Styles from '../../styles/Styles';
-import StylesScreens from './UserStyles';
+
 import ModalAuthentication from '../../layouts/ModalAuthentication';
 
 function UserConfig({ navigation }) {
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
     useEffect(() => {
 
@@ -34,7 +31,7 @@ function UserConfig({ navigation }) {
         <View>
 
             <ModalAuthentication
-                setModalVisible={setModalVisible }
+                setModalVisible={setModalVisible}
                 modalVisible={modalVisible}
                 action={confirmDelete}
             />

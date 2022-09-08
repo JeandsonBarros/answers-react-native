@@ -1,44 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native';
 
-import { login } from '../../../services/AuthService';
+import { register } from '../../../services/AuthService';
 import Styles from '../../styles/Styles';
+import UserStyles from './UserStyles';
 
-function UserRegister({ navigation}) {
+function UserRegister({ navigation }) {
 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    return ( 
-        <ScrollView>
-            <View
-                style={{
-                    flex: 1,
-                    alignItems: 'center'
-                }}
-            >
+    async function registerUser() {
 
-                <Text style={{ textAlign: 'center', fontSize: 30, margin: 20 }} >
-                    Questões <Text style={{ color: '#0AAD7C' }}>?</Text>
+        if (!name)
+            return alert("Informe seu nome!")
+
+        if (!email)
+            return alert("Informe seu e-mail!")
+
+        if (!password)
+            return alert("Informe sua senha!")
+
+        const message = await register(name, email, password)    
+
+        if (message=='Logado'){
+            alert('Usuário cadastrado.')
+            return navigation.navigate("Home")
+        }
+
+        alert(message)
+
+    }
+
+    return (
+        <ScrollView>
+            <View style={UserStyles.container} >
+
+                <Text style={UserStyles.logo} >
+                    Questões <Text style={UserStyles.lastcharacterLogo}>?</Text>
                 </Text>
 
                 <View
-                    style={{
-                        backgroundColor: '#fff',
-                        width: '90%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderRadius: 10
-                    }}>
+                    style={UserStyles.form}>
 
-                    <Text style={{ textAlign: 'center', fontSize: 30, margin: 20 }} >Cadastro</Text>
+                    <Text style={UserStyles.titleForm} >Cadastro</Text>
 
                     <View style={Styles.viewInput}>
                         <Text style={Styles.labelInput} >Nome</Text>
                         <TextInput
                             style={Styles.input}
                             placeholder="Fulano"
-                            onChangeText={setEmail}
+                            onChangeText={setName}
                         />
                     </View>
 
@@ -62,35 +75,24 @@ function UserRegister({ navigation}) {
                     </View>
 
                     <TouchableOpacity
-                        style={{
-                            backgroundColor: '#0AAD7C',
-                            borderRadius: 10,
-                            padding: 10,
-                            justifyContent: 'center',
-                            margin: 30
-
-                        }}
-                        
+                        style={Styles.button}
+                        onPress={registerUser}
                     >
-                        <Text style={{ color: '#fff', textAlign: 'center', fontSize: 25 }} >Cadastrar-se</Text>
+                        <Text style={Styles.textButton} >Cadastrar-se</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={{  
-                            justifyContent: 'center',
-                            margin: 10,
-                            marginBottom: 30
-                        }}
-                        onPress={()=>navigation.navigate('Login')}
+                        style={UserStyles.underlineButton}
+                        onPress={() => navigation.navigate('UserRegister')}
                     >
-                        <Text style={{ color: '#19242E', textAlign: 'center', fontSize: 20, textDecorationLine: 'underline' }} >Entrar</Text>
+                        <Text style={UserStyles.underlineTextButton} >Entrar</Text>
                     </TouchableOpacity>
 
                 </View>
 
             </View>
         </ScrollView>
-     );
+    );
 }
 
 export default UserRegister;

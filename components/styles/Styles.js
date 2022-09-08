@@ -29,13 +29,18 @@ export default StyleSheet.create({
         borderRadius: 10,
         paddingLeft: 15,
         height: 50,
+        borderWidth: 0.5,
+        borderColor: 'rgb(115, 115, 115)'
+    },
+
+    inputFocus:{
+        borderColor: '#0AAD7C'
     },
 
     button:{
         backgroundColor: '#0AAD7C',
         borderRadius: 10,
-        width: 100,
-        height: 50,
+        padding: 10,
         justifyContent: 'center',
         margin: 30
     },
@@ -43,7 +48,7 @@ export default StyleSheet.create({
     textButton: { 
         color: '#fff',
         textAlign: 'center',
-        fontSize: 30 
+        fontSize: 25 
         },
 
 });

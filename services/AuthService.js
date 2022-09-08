@@ -1,5 +1,5 @@
 
-import { saveToken, deleteToken, getToken} from "./TokenService";
+import { saveToken, deleteToken, getToken } from "./TokenService";
 
 export async function login(email, password) {
 
@@ -19,16 +19,73 @@ export async function login(email, password) {
     const data = await response.json()
 
     const asSaveToken = await saveToken(data.token)
-    
-    return asSaveToken? data.message: "Erro ao logar"
-    
+
+    return asSaveToken ? data.message : "Erro ao logar"
+
 }
 
-export async function logout(){
-   
-    const asDeleted = await deleteToken()
+export async function register(name, email, password) {
+    try {
+
+       
+        let fetchData = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password
+            })
+        }
+
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/auth/register`, fetchData)
+        const data = await response.json()
+
+        if (data.message=='Usuário cadastrado.'){
+          const loginConfirm =await login(email, password)
+          return loginConfirm
+        }
+
+        return data.message
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getUserData() {
+    try {
+        
+        let token = await getToken()
+        token = await JSON.parse(token)
+
+        let fetchData = {
+            method: 'GET',
+            headers: {
+                'authorization': "Bearer " + token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }
     
-    return asDeleted 
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/auth/user`, fetchData)
+        const data = await response.json()
+
+        return data
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function logout() {
+
+    const asDeleted = await deleteToken()
+
+    return asDeleted
 }
 
 export async function deleteAccount(email, password) {
@@ -36,7 +93,7 @@ export async function deleteAccount(email, password) {
 
         let token = await getToken()
         token = await JSON.parse(token)
-       
+
         let fetchData = {
             method: 'DELETE',
             headers: {
@@ -46,20 +103,25 @@ export async function deleteAccount(email, password) {
             },
 
             body: JSON.stringify({
-                 password:password 
-                })
+                password: password
+            })
 
         }
 
         console.log(fetchData);
-       
+
         const response = await fetch(`https://api-suas-questoes.herokuapp.com/auth/delete/${email}`, fetchData)
-        const data = await response.json() 
+        const data = await response.json()
 
         console.log(data);
 
-        return data.message  
-       
+        if(data.message=='Usuário deletado!')
+        {
+          await logout()
+        }
+
+        return data.message
+
 
     } catch (error) {
         console.log(error);

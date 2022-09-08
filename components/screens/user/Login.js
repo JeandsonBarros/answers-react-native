@@ -11,6 +11,13 @@ function Login({ navigation }) {
     const [password, setPassword] = useState("");
 
     async function loginButton() {
+
+        if (!email)
+            return alert("Informe seu e-mail!")
+
+        if (!password)
+            return alert("Informe sua senha!")
+
         const data = await login(email, password)
 
         if (data === "Logado")
@@ -21,27 +28,16 @@ function Login({ navigation }) {
 
     return (
         <ScrollView>
-            <View
-                style={{
-                    flex: 1,
-                    alignItems: 'center'
-                }}
-            >
+            <View style={UserStyles.container} >
 
-                <Text style={{ textAlign: 'center', fontSize: 30, margin: 20 }} >
-                    Questões <Text style={{ color: '#0AAD7C' }}>?</Text>
+                <Text style={UserStyles.logo} >
+                    Questões <Text style={UserStyles.lastcharacterLogo}>?</Text>
                 </Text>
 
                 <View
-                    style={{
-                        backgroundColor: '#fff',
-                        width: '90%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderRadius: 10
-                    }}>
+                    style={UserStyles.form}>
 
-                    <Text style={{ textAlign: 'center', fontSize: 30, margin: 20 }} >Login</Text>
+                    <Text style={UserStyles.titleForm} >Login</Text>
 
                     <View style={Styles.viewInput}>
                         <Text style={Styles.labelInput} >E-mail</Text>
@@ -63,28 +59,17 @@ function Login({ navigation }) {
                     </View>
 
                     <TouchableOpacity
-                        style={{
-                            backgroundColor: '#0AAD7C',
-                            borderRadius: 10,
-                            padding: 10,
-                            justifyContent: 'center',
-                            margin: 30
-
-                        }}
+                        style={Styles.button}
                         onPress={loginButton}
                     >
-                        <Text style={{ color: '#fff', textAlign: 'center', fontSize: 25 }} >Entrar</Text>
+                        <Text style={Styles.textButton} >Entrar</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={{
-                            justifyContent: 'center',
-                            margin: 10,
-                            marginBottom: 30
-                        }}
+                        style={UserStyles.underlineButton}
                         onPress={() => navigation.navigate('UserRegister')}
                     >
-                        <Text style={{ color: '#19242E', textAlign: 'center', fontSize: 20, textDecorationLine: 'underline' }} >Cadastre-se</Text>
+                        <Text style={UserStyles.underlineTextButton} >Cadastre-se</Text>
                     </TouchableOpacity>
 
                 </View>
