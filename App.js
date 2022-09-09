@@ -14,6 +14,7 @@ import UpdateQuestion from './components/screens/questions/UpdateQuestion';
 import UserConfig from './components/screens/user/UserConfig';
 import UserData from './components/screens/user/UserData';
 import UserRegister from './components/screens/user/UserRegister';
+import UserPassword from './components/screens/user/UserPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,6 +89,12 @@ export default function App() {
           name="UserRegister"
           component={UserRegister}
           options={{ title: 'Cadastro' }}
+        />
+
+        <Stack.Screen
+          name="UserPassword"
+          component={UserPassword}
+          options={{ title: 'Senha' }}
         />
 
       </Stack.Navigator>

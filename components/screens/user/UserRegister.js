@@ -4,6 +4,7 @@ import { Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-nativ
 import { register } from '../../../services/AuthService';
 import Styles from '../../styles/Styles';
 import UserStyles from './UserStyles';
+import TextInputCustom from "../../layouts/TextInputCustom";
 
 function UserRegister({ navigation }) {
 
@@ -44,35 +45,31 @@ function UserRegister({ navigation }) {
                 <View
                     style={UserStyles.form}>
 
-                    <Text style={UserStyles.titleForm} >Cadastro</Text>
+                  {/*   <Text style={UserStyles.titleForm} >Cadastro</Text> */}
 
-                    <View style={Styles.viewInput}>
-                        <Text style={Styles.labelInput} >Nome</Text>
-                        <TextInput
-                            style={Styles.input}
-                            placeholder="Fulano"
-                            onChangeText={setName}
-                        />
-                    </View>
+                    <TextInputCustom
+                        label="Nome"
+                        onChangeText={setName}
+                        value={name}
+                        placeholder="Fulano"
+                       
+                    />
 
-                    <View style={Styles.viewInput}>
-                        <Text style={Styles.labelInput} >E-mail</Text>
-                        <TextInput
-                            style={Styles.input}
-                            placeholder="exemplo@email.com"
-                            onChangeText={setEmail}
-                        />
-                    </View>
+                    <TextInputCustom
+                        label="E-mail"
+                        onChangeText={setEmail}
+                        value={email}
+                        placeholder="exemplo@email.com"
+                       
+                    />
 
-                    <View style={Styles.viewInput}>
-                        <Text style={Styles.labelInput} >Senha</Text>
-                        <TextInput
-                            style={Styles.input}
-                            placeholder="Senha1234"
-                            secureTextEntry={true}
-                            onChangeText={setPassword}
-                        />
-                    </View>
+                    <TextInputCustom
+                        label="Senha"
+                        onChangeText={setPassword}
+                        value={password}
+                        placeholder="Senha12345"
+                        secureTextEntry={true}
+                    />
 
                     <TouchableOpacity
                         style={Styles.button}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import React, { useState } from 'react';
-import {  Text,  TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { deleteAccount, logout } from '../../../services/AuthService';
@@ -24,7 +24,9 @@ function UserConfig({ navigation }) {
 
     async function confirmDelete(email, password) {
 
-        deleteAccount(email, password)
+       const message = await deleteAccount(email, password)
+       alert(message)
+       setModalVisible(false)
     }
 
     return (
@@ -57,6 +59,29 @@ function UserConfig({ navigation }) {
                     fontSize: 20,
                     color: "#19242E"
                 }} >Editar dados da conta</Text>
+
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={{
+                    borderTopColor: 'rgb(215, 215, 215)',
+
+                    margin: 5,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+
+                }}
+                onPress={() => navigation.navigate('UserPassword')}
+            >
+                <Svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#19242E" class="bi bi-key-fill" viewBox="0 0 16 16">
+                    <Path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                </Svg>
+
+                <Text style={{
+                    margin: 5,
+                    fontSize: 20,
+                    color: "#19242E"
+                }} >Senha</Text>
 
             </TouchableOpacity>
 

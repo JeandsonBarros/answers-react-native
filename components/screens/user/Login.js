@@ -4,6 +4,7 @@ import { Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-nativ
 import { login } from '../../../services/AuthService';
 import UserStyles from './UserStyles';
 import Styles from '../../styles/Styles';
+import TextInputCustom from "../../layouts/TextInputCustom";
 
 function Login({ navigation }) {
 
@@ -39,24 +40,21 @@ function Login({ navigation }) {
 
                     <Text style={UserStyles.titleForm} >Login</Text>
 
-                    <View style={Styles.viewInput}>
-                        <Text style={Styles.labelInput} >E-mail</Text>
-                        <TextInput
-                            style={Styles.input}
-                            placeholder="exemplo@email.com"
-                            onChangeText={setEmail}
-                        />
-                    </View>
+                    <TextInputCustom
+                        label="E-mail"
+                        onChangeText={setEmail}
+                        value={email}
+                        placeholder="exemplo@email.com"
+                       
+                    />
 
-                    <View style={Styles.viewInput}>
-                        <Text style={Styles.labelInput} >Senha</Text>
-                        <TextInput
-                            style={Styles.input}
-                            placeholder="Senha1234"
-                            secureTextEntry={true}
-                            onChangeText={setPassword}
-                        />
-                    </View>
+                    <TextInputCustom
+                        label="Senha"
+                        onChangeText={setPassword}
+                        value={password}
+                        placeholder="Senha12345"
+                        secureTextEntry={true}
+                    />
 
                     <TouchableOpacity
                         style={Styles.button}

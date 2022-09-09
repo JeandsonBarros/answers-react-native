@@ -24,11 +24,6 @@ function UpdateQuestion({ navigation, route }) {
                     questionUpdate={question}
                 />
 
-                <Navbar
-                    navigation={navigation}
-                    route={route}
-                />
-
             </View>
        
     );

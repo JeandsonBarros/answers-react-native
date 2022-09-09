@@ -19,6 +19,10 @@ export default function Home({ route, navigation }) {
 
     useEffect(() => {
 
+        navigation.addListener('focus', () => {
+            listQuestions()
+        });
+
         let isMounted = true;
 
         if (isMounted)

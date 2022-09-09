@@ -23,11 +23,6 @@ function AddQuestion({ navigation, route }) {
                 actionButton={saveQuestion}
             />
 
-            <Navbar
-                navigation={navigation}
-                route={route}
-            />
-
         </View>);
 }
 

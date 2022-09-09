@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
-import Styles from '../styles/Styles';
 import StylesLayouts from './StylesLayouts';
+import TextInputCustom from "./TextInputCustom";
 
 function ModalAuthentication({ setModalVisible, modalVisible, action }) {
 
@@ -35,27 +34,27 @@ function ModalAuthentication({ setModalVisible, modalVisible, action }) {
 
                     <Text
                         style={{ fontSize: 20, color: "#19242E" }} >
-                        Deletar conta
+                        Confirmar
                     </Text>
 
                     <Text >Informe seu e-mail e senha para confirmar.</Text>
 
-                    <View style={Styles.viewInput} >
-                        <Text style={Styles.labelInput} >E-mail</Text>
-                        <TextInput
-                            onChangeText={setEmail}
-                            placeholder="exemplo@email.com"
-                            style={Styles.input} />
-                    </View>
 
-                    <View style={Styles.viewInput} >
-                        <Text style={Styles.labelInput} >Senha</Text>
-                        <TextInput
-                            onChangeText={setPassword}
-                            placeholder="Senha12345"
-                            secureTextEntry={true}
-                            style={Styles.input} />
-                    </View>
+                    <TextInputCustom
+                        label="E-mail"
+                        onChangeText={setEmail}
+                        value={email}
+                        placeholder="exemplo@email.com"
+                       
+                    />
+
+                    <TextInputCustom
+                        label="Senha"
+                        onChangeText={setPassword}
+                        value={password}
+                        placeholder="Senha12345"
+                        secureTextEntry={true}
+                    />
 
                     <View
                         style={{
@@ -77,7 +76,7 @@ function ModalAuthentication({ setModalVisible, modalVisible, action }) {
                             style={[StylesLayouts.button, StylesLayouts.buttonDeleteAccount]}
                             onPress={runAction}
                         >
-                            <Text style={StylesLayouts.textStyle}>Deletar</Text>
+                            <Text style={StylesLayouts.textStyle}>Confirmar</Text>
                         </TouchableOpacity>
 
                     </View>

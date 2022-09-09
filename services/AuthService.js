@@ -81,6 +81,32 @@ export async function getUserData() {
     }
 }
 
+export async function putUserData(email, newData) {
+    try {
+        
+        let token = await getToken()
+        token = await JSON.parse(token)
+
+        let fetchData = {
+            method: 'PUT',
+            headers: {
+                'authorization': "Bearer " + token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newData)
+        }
+    
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/auth/update/${email}`, fetchData)
+        const data = await response.json()
+
+        return data.message
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function logout() {
 
     const asDeleted = await deleteToken()
