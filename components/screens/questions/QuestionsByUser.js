@@ -68,8 +68,6 @@ function QuestionsByUser({ route, navigation }) {
             `Realmente deseja deletar a questão "${text.slice(0, 20)}${text.length > 20 ? '...' : ''}" ?`, [
             {
                 text: 'Cancelar',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
             },
             {
                 text: 'Deletar', onPress: async () => {

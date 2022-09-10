@@ -35,8 +35,8 @@ export default function Navbar({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                 style={nameRouter=="Answers"? Styles.buttonNavSelect: Styles.buttonNav}
-                onPress={() => { navigation.navigate("Answers") }}
+                 style={nameRouter=="AnswersByUser"? Styles.buttonNavSelect: Styles.buttonNav}
+                onPress={() => { navigation.navigate("AnswersByUser") }}
             >
 
                 <Svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#EEF7FC" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">

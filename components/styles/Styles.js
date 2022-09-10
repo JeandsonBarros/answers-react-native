@@ -13,18 +13,20 @@ export default StyleSheet.create({
         flex: 1,
     },
     
-    viewInput:{   
-        marginHorizontal: 50,
+    viewInput:{
         marginTop: 20,
-        width: '80%'
+        width: '100%'
     },
 
     labelInput:{
+        marginLeft: 10,
         color: "#19242E",
         marginBottom:5
     },
 
     input:{
+        marginLeft: 10,
+        marginRight: 10,
         backgroundColor: '#e6e6e6',
         borderRadius: 10,
         paddingLeft: 15,
@@ -33,22 +35,22 @@ export default StyleSheet.create({
         borderColor: 'rgb(115, 115, 115)'
     },
 
-    inputFocus:{
+   /*  inputFocus:{
         borderColor: '#0AAD7C'
-    },
+    }, */
 
     button:{
         backgroundColor: '#0AAD7C',
         borderRadius: 10,
         padding: 10,
         justifyContent: 'center',
-        margin: 30
+        margin: 10
     },
 
     textButton: { 
         color: '#fff',
         textAlign: 'center',
-        fontSize: 25 
+        fontSize: 20 
         },
 
 });

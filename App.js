@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import HeaderRight from './components/layouts/HeaderRight';
 
 import AddQuestion from './components/screens/questions/AddQuestion';
-import Answers from './components/screens/answers/Answers';
+import AnswersByUser from './components/screens/answers/AnswersByUser';
 import Home from './components/screens/questions/Home';
 import Login from './components/screens/user/Login';
 import Question from './components/screens/questions/Question';
@@ -50,9 +50,9 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="Answers"
-          component={Answers}
-          options={{ title: 'Respostas' }}
+          name="AnswersByUser"
+          component={AnswersByUser}
+          options={{ title: 'Suas respostas' }}
         />
 
         <Stack.Screen
