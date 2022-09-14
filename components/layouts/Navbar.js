@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-
+import { asToken } from '../../services/TokenService';
 import Styles from './StylesLayouts';
 
 export default function Navbar({ navigation, route }) {
 
-    const [nameRouter,  setNameRouter] = useState(route.name)
+    const [nameRouter, setNameRouter] = useState(route.name)
+
+    async function navigateAuth(routeName) {
+        const asSetToken = await asToken()
+        asSetToken? navigation.navigate(routeName) : navigation.navigate("Login")
+
+    }
 
     return (
 
         <View style={Styles.navBar}>
 
             <TouchableOpacity
-                style={nameRouter=="Home"? Styles.buttonNavSelect: Styles.buttonNav}
+                style={nameRouter == "Home" ? Styles.buttonNavSelect : Styles.buttonNav}
                 onPress={() => { navigation.navigate("Home") }}
             >
 
@@ -24,8 +30,8 @@ export default function Navbar({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                 style={nameRouter=="QuestionsByUser"? Styles.buttonNavSelect: Styles.buttonNav}
-                onPress={() => { navigation.navigate("QuestionsByUser") }}
+                style={nameRouter == "QuestionsByUser" ? Styles.buttonNavSelect : Styles.buttonNav}
+                onPress={() => { navigateAuth("QuestionsByUser") }}
             >
 
                 <Svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#EEF7FC" class="bi bi-question-square-fill" viewBox="0 0 16 16">
@@ -35,8 +41,8 @@ export default function Navbar({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                 style={nameRouter=="AnswersByUser"? Styles.buttonNavSelect: Styles.buttonNav}
-                onPress={() => { navigation.navigate("AnswersByUser") }}
+                style={nameRouter == "AnswersByUser" ? Styles.buttonNavSelect : Styles.buttonNav}
+                onPress={() => { navigateAuth("AnswersByUser") }}
             >
 
                 <Svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#EEF7FC" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
@@ -46,8 +52,8 @@ export default function Navbar({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                 style={nameRouter=="Likes"? Styles.buttonNavSelect: Styles.buttonNav}
-                onPress={() => { navigation.navigate("Likes") }}
+                style={nameRouter == "LikesAnswers" ? Styles.buttonNavSelect : Styles.buttonNav}
+                onPress={() => { navigateAuth("LikesAnswers") }}
             >
 
                 <Svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#EEF7FC" class="bi bi-heart-fill" viewBox="0 0 16 16">

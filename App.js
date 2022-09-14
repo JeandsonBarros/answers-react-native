@@ -15,6 +15,7 @@ import UserConfig from './components/screens/user/UserConfig';
 import UserData from './components/screens/user/UserData';
 import UserRegister from './components/screens/user/UserRegister';
 import UserPassword from './components/screens/user/UserPassword';
+import LikesAnswers from './components/screens/like_answer/LikesAnswers';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,6 +96,12 @@ export default function App() {
           name="UserPassword"
           component={UserPassword}
           options={{ title: 'Senha' }}
+        />
+
+        <Stack.Screen
+          name="LikesAnswers"
+          component={LikesAnswers}
+          options={{ title: 'Respostas que você curtiu' }}
         />
 
       </Stack.Navigator>

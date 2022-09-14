@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { putQuestion } from '../../../services/QuestionsService';
 import FormQuestion from '../../layouts/FormQuestion';
-import Navbar from '../../layouts/Navbar';
 
 function UpdateQuestion({ navigation, route }) {
 

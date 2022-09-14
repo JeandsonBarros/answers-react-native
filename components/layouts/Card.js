@@ -5,7 +5,7 @@ import Svg, { Path } from 'react-native-svg';
 import StylesLayouts from './StylesLayouts';
 
 
-export default function Card({ id, title, content, icon, getQuantity }) {
+export default function Card({ id, title, content, getQuantity, date }) {
 
     const [quantityState, setQuantityState] = useState();
 
@@ -33,20 +33,31 @@ export default function Card({ id, title, content, icon, getQuantity }) {
 
             <Text style={StylesLayouts.textCard}>{content}</Text>
 
-            <TouchableOpacity
-                style={StylesLayouts.viewCardQuantity}
-                
-            >
+            <View style={StylesLayouts.viewCardQuantity} >
 
-                {icon}
-
-                <Text style={StylesLayouts.textQuantity} >
-                    {quantityState}
+                <Text>
+                    {
+                        (() => {
+                            const birthday = new Date(date)
+                            birthday.toLocaleDateString()
+                            return birthday.toLocaleDateString()
+                        })()
+                    }
                 </Text>
 
-            </TouchableOpacity>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="#0AAD7C" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                        <Path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                    </Svg>
 
-            
+                    <Text style={StylesLayouts.textQuantity} >
+                        {quantityState}
+                    </Text>
+                </View>
+
+            </View>
+
+
 
         </View>);
 }

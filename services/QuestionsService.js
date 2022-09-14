@@ -25,7 +25,7 @@ export async function getQuestionsByUser(page) {
 
     }
 
-    const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/by/user`, fetchData)
+    const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/by/user?page=${page}`, fetchData)
     const data = await response.json()
 
     return typeof (data) == 'string' ? [] : data

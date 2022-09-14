@@ -153,10 +153,13 @@ export default StyleSheet.create({
 
     viewCardQuantity: {
         position: 'absolute',
-        right: 10,
+        width:'100%',
         bottom: 10,
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginStart: 10,
+        marginEnd: 10
     },
 
     textQuantity: {

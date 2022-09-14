@@ -4,23 +4,12 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { deleteAccount, logout } from '../../../services/AuthService';
-import { asToken } from '../../../services/TokenService';
 
 import ModalAuthentication from '../../layouts/ModalAuthentication';
 
 function UserConfig({ navigation }) {
 
     const [modalVisible, setModalVisible] = useState(false);
-
-    useEffect(() => {
-
-        asToken().then(asSetToken => {
-
-            if (!asSetToken)
-                navigation.navigate("Login")
-        })
-
-    }, [])
 
     async function confirmDelete(email, password) {
 

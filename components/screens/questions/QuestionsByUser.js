@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, TouchableOpacity, View, TextInput, Text, Alert } from 'react-native';
+import { ScrollView, TouchableOpacity, View, TextInput, Text, Alert, FlatList } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { getAnswers } from '../../../services/AnswersService';
 import { getQuestionsByUser, deleteQuestion, findQuestionByUser } from '../../../services/QuestionsService';
-import { asToken } from '../../../services/TokenService';
 import Card from '../../layouts/Card';
 import Load from '../../layouts/Load';
 import Navbar from '../../layouts/Navbar';
@@ -15,34 +14,19 @@ function QuestionsByUser({ route, navigation }) {
     const [questions, setQuestions] = useState([]);
     const [visibleLoad, setVisibleLoad] = useState(true);
     const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
 
-        navigation.addListener('focus', () => {
-            asToken().then(asSetToken => {
+        navigation.addListener('focus', () => listQuestions());
 
-                if (asSetToken)
-                    listQuestions()
-                else
-                    navigation.navigate("Login")
-
-            })
-        });
-
-        asToken().then(asSetToken => {
-
-            if (asSetToken)
-                listQuestions()
-            else
-                navigation.navigate("Login")
-
-        })
+        listQuestions()
 
     }, [])
 
     async function listQuestions() {
 
-        const data = await getQuestionsByUser(1)
+        const data = await getQuestionsByUser(page)
 
         setQuestions(data.questions)
         setVisibleLoad(false)
@@ -54,7 +38,7 @@ function QuestionsByUser({ route, navigation }) {
         setSearch(param)
 
         if (param) {
-            const data = await findQuestionByUser(param, 1)
+            const data = await findQuestionByUser(param, page)
             setQuestions(data.questions)
 
         } else {
@@ -79,12 +63,83 @@ function QuestionsByUser({ route, navigation }) {
         ]);
     }
 
+    const renderItem = ({ item }) => (
+        <View key={item.id} >
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Question", { questionId: item.id })}
+            >
 
+                <Card
+                    id={item.id}
+                    title={item.user_name + " | " + item.matter}
+                    content={item.statement}
+                    getQuantity={getAnswers}
+                    date={item.createdAt}
+                />
+
+            </TouchableOpacity>
+
+            <View
+                style={StylesScreens.viewEditAndDelete}>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('UpdateQuestion', { question: item })}
+                    style={StylesScreens.buttonEdit}
+                >
+                    <Text style={StylesScreens.textButon} >Editar</Text>
+                    <Svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFF" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <Path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <Path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </Svg>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => confirmDelete(item.id, item.statement)}
+                    style={StylesScreens.buttonDelete}
+                >
+                    <Text style={StylesScreens.textButon} >Deletar</Text>
+                    <Svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <Path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                    </Svg>
+                </TouchableOpacity>
+
+            </View>
+
+        </View>
+    );
 
     return (
         <View style={StylesScreens.container}>
 
-            <ScrollView style={{ marginBottom: 70 }}>
+            {visibleLoad ?
+                <Load />
+                :
+                <FlatList
+                    onEndReached={async () => {
+
+                        setPage(page + 1)
+                        const data = await getQuestionsByUser(page + 1)
+                       
+                        if (data.questions.length > 0)
+                            setQuestions(questions.concat(data.questions))
+
+                    }}
+                    onEndReachedThreshold={0.5}
+                    style={{ marginBottom: 70 }}
+                    data={questions}
+                    keyExtractor={item => item.id}
+                    renderItem={renderItem}
+                />
+            }
+
+            {/* <ScrollView
+                style={{ marginBottom: 70 }}
+                
+                onScroll={({ nativeEvent }) => {
+                     console.log("Y: ", nativeEvent.contentOffset.y);
+                     console.log("=========================================");
+                }}
+            >
 
                 <View style={StylesScreens.search}>
 
@@ -110,16 +165,11 @@ function QuestionsByUser({ route, navigation }) {
                             >
 
                                 <Card
-
                                     id={question.id}
                                     title={question.user_name + " | " + question.matter}
                                     content={question.statement}
                                     getQuantity={getAnswers}
-                                    icon={
-                                        <Svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="#0AAD7C" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
-                                            <Path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                                        </Svg>
-                                    }
+                                    date={question.createdAt}
                                 />
 
                             </TouchableOpacity>
@@ -154,7 +204,7 @@ function QuestionsByUser({ route, navigation }) {
                     )
                 })}
 
-            </ScrollView>
+            </ScrollView> */}
 
             <TouchableOpacity
                 style={StylesScreens.addButton}
