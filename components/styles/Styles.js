@@ -7,24 +7,24 @@ export default StyleSheet.create({
         color: "#19242E"
     },
 
-    form:{
+    form: {
         display: "flex",
         alignItems: "center",
         flex: 1,
     },
-    
-    viewInput:{
+
+    viewInput: {
         marginTop: 20,
         width: '100%'
     },
 
-    labelInput:{
+    labelInput: {
         marginLeft: 10,
         color: "#19242E",
-        marginBottom:5
+        marginBottom: 5
     },
 
-    input:{
+    input: {
         marginLeft: 10,
         marginRight: 10,
         backgroundColor: '#e6e6e6',
@@ -35,11 +35,11 @@ export default StyleSheet.create({
         borderColor: 'rgb(115, 115, 115)'
     },
 
-   /*  inputFocus:{
-        borderColor: '#0AAD7C'
-    }, */
+    /*  inputFocus:{
+         borderColor: '#0AAD7C'
+     }, */
 
-    button:{
+    button: {
         backgroundColor: '#0AAD7C',
         borderRadius: 10,
         padding: 10,
@@ -47,11 +47,38 @@ export default StyleSheet.create({
         margin: 10
     },
 
-    textButton: { 
+    textButton: {
         color: '#fff',
         textAlign: 'center',
-        fontSize: 20 
+        fontSize: 20
+    },
+
+    search: {
+
+        height: 45,
+        alignItems: 'center',
+
+        backgroundColor: '#e9e9e9',
+        flexDirection: 'row',
+
+        zIndex: 2,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
         },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
+
+    },
+
+    textInputSearch: {
+        width: '90%',
+        height: '100%',
+    },
 
 });
 

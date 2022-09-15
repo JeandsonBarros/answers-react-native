@@ -1,58 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Text } from 'react-native';
+import {  View, Image } from 'react-native';
 
 function Load() {
 
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        fadeIn()
-    }, [])
-
-    function fadeIn() {
-
-        Animated.loop(
-            Animated.sequence([
-                Animated.timing(fadeAnim, {
-                    toValue: 1,
-                    duration: 300,
-                    delay: 1000,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(fadeAnim, {
-                    toValue: 0,
-                    duration: 300,
-                    useNativeDriver: true,
-                })
-            ]),
-
-        ).start()
-    };
-
     return (
-        <Animated.View
-            style={[
-                {
-                    flex: 1,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                },
-                {
-                    // Bind opacity to animated value
-                    opacity: fadeAnim
-                }
-            ]}
-        >
-
-            <Text style={{
-
-                color: '#0AAD7C',
-                fontSize: 90,
-                alignItems: 'center',
-                justifyContent: 'center'
-            }} >?</Text>
-
-        </Animated.View>
+        <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',   
+            width: '100%',
+            marginBottom: 80,
+            marginTop: 20
+        }}>
+            <Image
+            style={{height: 50, width: 60, padding: 10,}}
+                source={require('../../assets/loading.gif')}
+            />
+        </View>
     );
 }
 

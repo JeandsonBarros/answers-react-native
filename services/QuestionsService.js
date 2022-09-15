@@ -33,26 +33,29 @@ export async function getQuestionsByUser(page) {
 }
 
 export async function findQuestion(statement, page) {
+    try {
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/find?statement=${statement}&page=${page}`)
+        const data = await response.json()
 
-    const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/find?statement=${statement}&page=${page}`)
-    const data = await response.json()
-
-    return data
+        return data
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function findQuestionByUser(statement, page) {
 
     let token = await getToken()
-        token = await JSON.parse(token)
-       
-        let fetchData = {
-            method: 'GET',
-            headers: {
-                'authorization': "Bearer " + token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
+    token = await JSON.parse(token)
+
+    let fetchData = {
+        method: 'GET',
+        headers: {
+            'authorization': "Bearer " + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         }
+    }
 
     const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/by/user?search=${statement}&page=${page}`, fetchData)
     const data = await response.json()
@@ -73,10 +76,10 @@ export async function postQuestion(question) {
 
     try {
 
-       
+
         let token = await getToken()
         token = await JSON.parse(token)
-       
+
         let fetchData = {
             method: 'POST',
             headers: {
@@ -87,12 +90,12 @@ export async function postQuestion(question) {
             body: JSON.stringify(question)
 
         }
-       
+
         const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions`, fetchData)
-        const data = await response.json() 
+        const data = await response.json()
 
         return data.message
-       
+
 
     } catch (error) {
         console.log(error);
@@ -106,7 +109,7 @@ export async function putQuestion(question, id) {
 
         let token = await getToken()
         token = await JSON.parse(token)
-       
+
         let fetchData = {
             method: 'PUT',
             headers: {
@@ -115,16 +118,16 @@ export async function putQuestion(question, id) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                answer: question.answer, 
+                answer: question.answer,
                 matter: question.matter,
                 statement: question.statement
             })
         }
-       
-        const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/${id}`, fetchData)
-        const data = await response.json() 
 
-        return data.message  
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/${id}`, fetchData)
+        const data = await response.json()
+
+        return data.message
 
     } catch (error) {
         console.log(error);
@@ -137,7 +140,7 @@ export async function deleteQuestion(id) {
 
         let token = await getToken()
         token = await JSON.parse(token)
-       
+
         let fetchData = {
             method: 'DELETE',
             headers: {
@@ -146,11 +149,11 @@ export async function deleteQuestion(id) {
                 'Content-Type': 'application/json',
             }
         }
-       
-        const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/${id}`, fetchData)
-        const data = await response.json() 
 
-        return data.message  
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions/${id}`, fetchData)
+        const data = await response.json()
+
+        return data.message
 
     } catch (error) {
         console.log(error);

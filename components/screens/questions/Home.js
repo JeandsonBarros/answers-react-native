@@ -16,6 +16,8 @@ export default function Home({ route, navigation }) {
     const [questions, setQuestions] = useState([]);
     const [visibleLoad, setVisibleLoad] = useState(true);
     const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
 
     useEffect(() => {
 
@@ -32,25 +34,57 @@ export default function Home({ route, navigation }) {
 
     }, [])
 
-    async function listQuestions() {
+    async function listQuestions(pageParam) {
 
-        const data = await getAllQuestions(1)
+        const data = await getAllQuestions(pageParam)
+        setTotalPage(data.total_pages)
 
-        setQuestions(data.questions)
+        if (pageParam == 1)
+            setQuestions(data.questions)
+        else
+            setQuestions(questions.concat(data.questions))
+
         setVisibleLoad(false)
 
     }
 
-    async function searchQuestion(param) {
+    async function pagination() {
 
-        setSearch(param)
+        const pageTemp = page + 1
 
-        if (param) {
-            const data = await findQuestion(param, 1)
-            setQuestions(data.questions)
+        if (pageTemp <= totalPage) {
+
+            setPage(pageTemp)
+
+            if (search.length > 0) {
+                searchQuestion(search, pageTemp)
+
+            } else {
+                listQuestions(pageTemp)
+            }
+
+        }
+
+    }
+
+    async function searchQuestion(searchParam, pageParam=1) {
+        setSearch(searchParam)
+
+        if (searchParam.length > 0) {
+            const data = await findQuestion(searchParam, pageParam)
+            setTotalPage(data.total_pages)
+
+            if (pageParam == 1){
+                setQuestions(data.questions)
+            }
+            else {
+                setQuestions(questions.concat(data.questions))
+            }
 
         } else {
-            listQuestions()
+
+            setPage(1)
+            listQuestions(1)
         }
     }
 
@@ -97,14 +131,31 @@ export default function Home({ route, navigation }) {
                     )
                 })}
 
+                {!(page == totalPage) && <TouchableOpacity
+                    onPress={pagination}
+                    style={{
+                        backgroundColor: '#0AAD7C',
+                        borderRadius: 10,
+                        margin: 15,
+                        padding: 10
+                    }}
+                >
+                    <Text style={{
+                        color: '#fff',
+                        fontSize: 20,
+                        textAlign: 'center',
+                    }}> Mostrar mais + </Text>
+
+                </TouchableOpacity>}
+
             </ScrollView>
 
             <TouchableOpacity
                 style={StylesScreens.addButton}
                 onPress={async () => {
-                
+
                     const asSetToken = await asToken()
-                    asSetToken? navigation.navigate('AddQuestion') : navigation.navigate("Login")
+                    asSetToken ? navigation.navigate('AddQuestion') : navigation.navigate("Login")
 
                 }}
             >

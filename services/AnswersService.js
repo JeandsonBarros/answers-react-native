@@ -36,6 +36,33 @@ export async function getAnswersByUser(page) {
 
 }
 
+export async function findAnswersByUser(page, search) {
+
+    try {
+
+        let token = await getToken()
+        token = await JSON.parse(token)
+
+        let fetchData = {
+            method: 'GET',
+            headers: {
+                'authorization': "Bearer " + token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/answers/list/by/user?search=${search}&page=${page}`, fetchData)
+        const data = await response.json()
+
+        return data
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
 export async function getOneAnswerByUser(questionId) {
     try {
     
