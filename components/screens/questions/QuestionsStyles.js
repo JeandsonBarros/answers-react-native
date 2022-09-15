@@ -22,13 +22,25 @@ export default StyleSheet.create({
     },
 
     search: {
-        marginTop: 10,
-        height: 35,
-        marginLeft: 10,
-        marginRight: 10,
-        backgroundColor: '#e6e6e6',
+       
+        height: 45,
+        alignItems: 'center',
+       
+        backgroundColor: '#e9e9e9',
         flexDirection: 'row',
-        borderRadius: 10,
+
+        zIndex: 2,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
+
     },
 
     textInputSearch: {
@@ -49,7 +61,6 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
 
         borderRadius: 10,
