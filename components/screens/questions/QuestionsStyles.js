@@ -2,10 +2,6 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     /* ============ Home Styles ============= */
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
 
     titleHome: {
         fontSize: 25,
@@ -19,33 +15,6 @@ export default StyleSheet.create({
         right: 30,
         backgroundColor: '#fff',
         borderRadius: 50
-    },
-
-    search: {
-       
-        height: 45,
-        alignItems: 'center',
-       
-        backgroundColor: '#e9e9e9',
-        flexDirection: 'row',
-
-        zIndex: 2,
-
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-
-
-    },
-
-    textInputSearch: {
-        width: '90%',
-        height: '100%',
     },
 
     /* ============ Question Styles ============= */

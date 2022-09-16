@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { Text,  TouchableOpacity, View, ScrollView } from 'react-native';
 
 import { login } from '../../../services/AuthService';
 import UserStyles from './UserStyles';
 import Styles from '../../styles/Styles';
 import TextInputCustom from "../../layouts/TextInputCustom";
+import PasswordInput from "../../layouts/PasswordInput";
 
 function Login({ navigation }) {
 
@@ -55,6 +56,16 @@ function Login({ navigation }) {
                         placeholder="Senha12345"
                         secureTextEntry={true}
                     />
+
+                    <PasswordInput
+                        label="Senha"
+                        onChangeText={setPassword}
+                        value={password}
+                        placeholder="Senha12345"
+                        secureTextEntry={true}
+                    />
+
+
 
                     <TouchableOpacity
                         style={Styles.button}

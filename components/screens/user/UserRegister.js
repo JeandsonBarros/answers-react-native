@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { Text, TouchableOpacity, View, ScrollView } from 'react-native';
 
 import { register } from '../../../services/AuthService';
 import Styles from '../../styles/Styles';
@@ -42,10 +42,8 @@ function UserRegister({ navigation }) {
                     Questões <Text style={UserStyles.lastcharacterLogo}>?</Text>
                 </Text>
 
-                <View
-                    style={UserStyles.form}>
+                <View style={UserStyles.form}>
 
-                  {/*   <Text style={UserStyles.titleForm} >Cadastro</Text> */}
 
                     <TextInputCustom
                         label="Nome"

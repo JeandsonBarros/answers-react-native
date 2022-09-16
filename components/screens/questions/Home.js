@@ -5,10 +5,12 @@ import Svg, { Path } from 'react-native-svg';
 import { asToken } from '../../../services/TokenService';
 import { getAnswers } from '../../../services/AnswersService';
 import { findQuestion, getAllQuestions } from '../../../services/QuestionsService';
-import Card from '../../layouts/Card';
+import CardQuestion from '../../layouts/CardQuestion';
 import Load from '../../layouts/Load';
 import Navbar from '../../layouts/Navbar';
-import StylesScreens from './QuestionsStyles';
+import QuestionsStyles from './QuestionsStyles';
+import SearchInput from '../../layouts/SearchInput';
+import Styles from '../../styles/Styles';
 
 
 export default function Home({ route, navigation }) {
@@ -90,26 +92,17 @@ export default function Home({ route, navigation }) {
 
 
     return (
-        <View style={StylesScreens.container}>
+        <View style={Styles.container}>
 
             <ScrollView style={{ marginBottom: 70 }}>
 
-                <View style={StylesScreens.search}>
+                <SearchInput
+                    placeholder='Buscar questão por enunciado'
+                    value={search}
+                    onChangeText={searchQuestion}
+                />
 
-                    <Svg style={{ margin: 5 }} xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#19242E" class="bi bi-search" viewBox="0 0 16 16">
-                        <Path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </Svg>
-
-                    <TextInput
-                        placeholder='Buscar questão por enunciado'
-                        style={StylesScreens.textInputSearch}
-                        value={search}
-                        onChangeText={searchQuestion}
-                    />
-
-                </View>
-
-                <Text style={StylesScreens.titleHome}>Questões</Text>
+                <Text style={QuestionsStyles.titleHome}>Questões</Text>
 
                 {visibleLoad ? <Load /> : questions.map(question => {
                     return (
@@ -118,7 +111,7 @@ export default function Home({ route, navigation }) {
                             onPress={() => navigation.navigate("Question", { questionId: question.id })}
                         >
 
-                            <Card
+                            <CardQuestion
 
                                 id={question.id}
                                 title={question.user_name + " | " + question.matter}
@@ -151,7 +144,7 @@ export default function Home({ route, navigation }) {
             </ScrollView>
 
             <TouchableOpacity
-                style={StylesScreens.addButton}
+                style={QuestionsStyles.addButton}
                 onPress={async () => {
 
                     const asSetToken = await asToken()

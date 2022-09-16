@@ -16,7 +16,7 @@ export async function getQuantyLikes(idAnswer) {
 
 }
 
-export async function getAnswersLikes() {
+export async function getAnswersLikes(page) {
 
     try {
 
@@ -32,7 +32,7 @@ export async function getAnswersLikes() {
             }
         }
 
-        const response = await fetch('https://api-suas-questoes.herokuapp.com/like-answers/', fetchData)
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/like-answers?page=${page}`, fetchData)
         const data = await response.json()
 
         return data

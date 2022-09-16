@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import Styles from "../../styles/Styles";
 import { putUserData } from "../../../services/AuthService"
 import ModalAuthentication from "../../layouts/ModalAuthentication";

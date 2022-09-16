@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-
+import Moment from 'moment';
 import StylesLayouts from './StylesLayouts';
 
 
-export default function Card({ id, title, content, getQuantity, date }) {
+export default function CardQuestion({ id, title, content, getQuantity, date }) {
 
     const [quantityState, setQuantityState] = useState();
 
@@ -36,13 +36,7 @@ export default function Card({ id, title, content, getQuantity, date }) {
             <View style={StylesLayouts.viewCardQuantity} >
 
                 <Text>
-                    {
-                        (() => {
-                            const birthday = new Date(date)
-                            birthday.toLocaleDateString()
-                            return birthday.toLocaleDateString()
-                        })()
-                    }
+                    {Moment(date).format('DD/MM/YYYY')}
                 </Text>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>

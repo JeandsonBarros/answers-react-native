@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View, Alert } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
 
 import { deleteAnswer, getAnswers, getOneAnswerByUser, postAnswer, putAnswer } from '../../../services/AnswersService';
-import { getQuantyLikes } from '../../../services/LikesService';
 import { getQuestion } from '../../../services/QuestionsService';
 import { asToken } from '../../../services/TokenService';
-import Card from '../../layouts/Card';
+import CardQuestion from '../../layouts/CardQuestion';
 import CardAnswer from '../../layouts/CardAnswer';
 import TextInputCustom from '../../layouts/TextInputCustom';
 import Styles from '../../styles/Styles';
-import StylesScreens from './QuestionsStyles';
+import QuestionsStyles from './QuestionsStyles';
+import Load from '../../layouts/Load';
+
 
 export default function Question({ route, navigation }) {
 
@@ -20,6 +20,9 @@ export default function Question({ route, navigation }) {
     const [question, setQuestion] = useState({});
     const [answerByUser, setAnswerByUser] = useState({});
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [visibleLoad, setVisibleLoad] = useState(true);
+    const [totalPages, setTotalPages] = useState(1);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
 
@@ -35,7 +38,7 @@ export default function Question({ route, navigation }) {
 
         })
 
-        selectAnswers()
+        selectAnswers(1)
 
         selectQuestion()
 
@@ -126,10 +129,14 @@ export default function Question({ route, navigation }) {
         }
     }
 
-    async function selectAnswers() {
+    async function selectAnswers(pageParam) {
         try {
-            const data = await getAnswers(questionId, 1)
-            setAnswers(data.answers)
+            const data = await getAnswers(questionId, pageParam)
+           
+            setAnswers(answers.concat(data.answers))
+
+            setPage(data.page)
+            setTotalPages(data.total_pages)
 
         } catch (error) {
             console.log(error);
@@ -140,7 +147,7 @@ export default function Question({ route, navigation }) {
         <View >
             <ScrollView>
 
-                <Card
+                <CardQuestion
                     id={questionId}
                     title={question.user_name + " | " + question.matter}
                     content={question.statement}
@@ -149,14 +156,14 @@ export default function Question({ route, navigation }) {
                 />
 
                 {
-                    question.answer ? (<View style={StylesScreens.card}>
-                        <Text style={StylesScreens.title}>Resposta de {question.user_name}</Text>
-                        <Text style={StylesScreens.statement}>{question.answer}</Text>
+                    question.answer ? (<View style={QuestionsStyles.card}>
+                        <Text style={QuestionsStyles.title}>Resposta de {question.user_name}</Text>
+                        <Text style={QuestionsStyles.statement}>{question.answer}</Text>
 
                     </View>) : <Text></Text>
                 }
 
-                <View style={StylesScreens.card}>
+                <View style={QuestionsStyles.card}>
 
                     {isAuthenticated ?
 
@@ -201,7 +208,7 @@ export default function Question({ route, navigation }) {
 
                         <View>
 
-                            <Text style={StylesScreens.title}>
+                            <Text style={QuestionsStyles.title}>
                                 Entre ou cadastre-se para deixar uma sugestão de resposta.
                             </Text>
 
@@ -225,8 +232,10 @@ export default function Question({ route, navigation }) {
 
                 </View>
 
-                <View style={StylesScreens.card}>
-                    <Text style={StylesScreens.title}>Sugestões de respostas</Text>
+                <View style={QuestionsStyles.card}>
+
+                    <Text style={QuestionsStyles.title}>Sugestões de respostas</Text>
+
                     {
                         answers.map(answer => {
                             return (
@@ -241,7 +250,16 @@ export default function Question({ route, navigation }) {
                             )
                         })
                     }
+
+                    {(totalPages > page) && <TouchableOpacity
+                        style={Styles.buttonPagination}
+                        onPress={() => selectAnswers(page + 1)}
+                    >
+                        <Text style={Styles.textButtonPagination} >Mostrar mais +</Text>
+                    </TouchableOpacity>
+                    }
                 </View>
+
             </ScrollView>
         </View>);
 }

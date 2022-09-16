@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { getAsAnswersLikes, getQuantyLikes, postAnswersLikes, deleteAnswersLikes } from "../../services/LikesService"
 import StylesLayouts from './StylesLayouts';
+import Moment from 'moment';
 
 export default function CardAnswer({ id, title, content, date }) {
 
@@ -84,13 +85,7 @@ export default function CardAnswer({ id, title, content, date }) {
             <View style={StylesLayouts.viewCardQuantity}>
 
                 <Text>
-                    {
-                        (() => {
-                            const birthday = new Date(date)
-                            birthday.toLocaleDateString()
-                            return birthday.toLocaleDateString()
-                        })()
-                    }
+                    {Moment(date).format('DD/MM/YYYY')}
                 </Text>
 
                 <TouchableOpacity

@@ -2,6 +2,11 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
 
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+      },
+
     title: {
         fontSize: 16,
         color: "#19242E"
@@ -79,6 +84,19 @@ export default StyleSheet.create({
         width: '90%',
         height: '100%',
     },
+
+    buttonPagination: {
+        backgroundColor: '#0AAD7C',
+        borderRadius: 10,
+        margin: 15,
+        padding: 10
+    },
+
+    textButtonPagination:{
+        color: '#fff',
+        fontSize: 20,
+        textAlign: 'center',
+    }
 
 });
 

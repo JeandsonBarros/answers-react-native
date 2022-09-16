@@ -45,7 +45,20 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         textDecorationLine: 'underline'
-    }
+    },
+
+    buttonConfig: {
+        borderTopColor: 'rgb(215, 215, 215)',
+        margin: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    textButtonConfig:{
+        margin: 5,
+        fontSize: 20,
+        color: "#19242E"
+    } 
 
     /* ============ UserConfig Styles =============*/
 

@@ -207,5 +207,11 @@ export default StyleSheet.create({
         textAlign: "center"
     },
 
+    /* =========== Start input password ===========  */
+
+    
+
+    /* =========== End input password ===========  */
+
 });
 

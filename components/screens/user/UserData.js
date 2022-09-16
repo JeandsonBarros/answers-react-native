@@ -15,8 +15,7 @@ function UserData({ navigation }) {
     useEffect(() => {
 
         getUserData().then(data => {
-            console.log(data.user);
-
+          
             setName(data.user.name);
             setEmail(data.user.email);
 

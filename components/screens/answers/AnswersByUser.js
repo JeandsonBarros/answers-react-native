@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { getAnswersByUser, findAnswersByUser } from '../../../services/AnswersService';
 import CardAnswer from '../../layouts/CardAnswer';
 import Navbar from '../../layouts/Navbar';
 import Load from '../../layouts/Load';
 import Styles from '../../styles/Styles'
 import Svg, { Path } from 'react-native-svg';
+import SearchInput from '../../layouts/SearchInput';
 
 export default function AnswersByUser({ route, navigation }) {
 
@@ -82,27 +83,17 @@ export default function AnswersByUser({ route, navigation }) {
     }
   }
 
-
   return (
 
-    <View style={styles.container}>
+    <View style={Styles.container}>
 
-      <View style={Styles.search}>
+      <SearchInput
+        placeholder='Buscar resposta'
+        value={search}
+        onChangeText={searchAnswer}
+      />
 
-        <Svg style={{ margin: 5 }} xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#19242E" class="bi bi-search" viewBox="0 0 16 16">
-          <Path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-        </Svg>
-
-        <TextInput
-          placeholder='Buscar resposta'
-          style={Styles.textInputSearch}
-          value={search}
-          onChangeText={searchAnswer}
-        />
-
-      </View>
-
-      <ScrollView style={{ height: '100%' }}>
+      <ScrollView style={{ height: '100%', marginBottom: 70 }}>
 
         {!visibleLoad && (() => {
           if (answers.length == 0)
@@ -131,22 +122,14 @@ export default function AnswersByUser({ route, navigation }) {
             </TouchableOpacity>)
         })}
 
-        {!(page == totalPage ) || answers.length == 0  && <TouchableOpacity
-          onPress={pagination}
-          style={{
-            backgroundColor: '#0AAD7C',
-            borderRadius: 10,
-            margin: 15,
-            padding: 10
-          }}
-        >
-          <Text style={{
-            color: '#fff',
-            fontSize: 20,
-            textAlign: 'center',
-          }}> Mostrar mais + </Text>
-
-        </TouchableOpacity>}
+        {totalPage > page &&
+          <TouchableOpacity
+            onPress={pagination}
+            style={Styles.buttonPagination}>
+            <Text style={Styles.textButtonPagination}>
+              Mostrar mais +
+            </Text>
+          </TouchableOpacity>}
 
       </ScrollView>
 
@@ -159,14 +142,3 @@ export default function AnswersByUser({ route, navigation }) {
 
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-
-  },
-
-
-
-});
