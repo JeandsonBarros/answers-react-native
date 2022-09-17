@@ -22,10 +22,10 @@ export default StyleSheet.create({
 
     form: {
         backgroundColor: '#fff',
-        width: '90%',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        margin: 20
     },
 
     titleForm: {

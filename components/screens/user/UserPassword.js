@@ -4,10 +4,11 @@ import Styles from "../../styles/Styles";
 import { putUserData } from "../../../services/AuthService"
 import ModalAuthentication from "../../layouts/ModalAuthentication";
 import TextInputCustom from "../../layouts/TextInputCustom";
+import PasswordInput from "../../layouts/PasswordInput";
 
 function UserPassword({ navigation }) {
 
-    const [newPassword, setPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
 
@@ -54,20 +55,18 @@ function UserPassword({ navigation }) {
                     action={updatePassword}
                 />
 
-                <TextInputCustom
+                <PasswordInput
                     label="Nova senha"
-                    onChangeText={setPassword}
+                    onChangeText={setNewPassword}
                     value={newPassword}
                     placeholder="Senha12345"
-                    secureTextEntry={true}
                 />
 
-                <TextInputCustom
+                <PasswordInput
                     label="Confirmar senha"
                     onChangeText={setConfirmPassword}
                     value={confirmPassword}
                     placeholder="Senha12345"
-                    secureTextEntry={true}
                 />
 
                 <TouchableOpacity

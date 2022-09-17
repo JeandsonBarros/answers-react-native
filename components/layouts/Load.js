@@ -1,20 +1,21 @@
-import {  View, Image } from 'react-native';
+import { View, Image } from 'react-native';
 
-function Load() {
+function Load({ visible }) {
 
     return (
-        <View style={{
-            justifyContent: 'center',
-            alignItems: 'center',   
-            width: '100%',
-            marginBottom: 80,
-            marginTop: 20
-        }}>
-            <Image
-            style={{height: 50, width: 60, padding: 10,}}
-                source={require('../../assets/loading.gif')}
-            />
-        </View>
+        <>
+            {visible && <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                margin: 10
+            }}>
+                <Image
+                    style={{ height: 50, width: 60, padding: 10, }}
+                    source={require('../../assets/loading.gif')}
+                />
+            </View>}
+        </>
     );
 }
 

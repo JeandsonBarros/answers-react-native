@@ -16,6 +16,8 @@ function UserConfig({ navigation }) {
         const message = await deleteAccount(email, password)
         alert(message)
         setModalVisible(false)
+
+        navigation.navigate('Home')
     }
 
     return (

@@ -1,13 +1,12 @@
-
 import React, { useEffect, useState } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
-import { getAnswersByUser, findAnswersByUser } from '../../../services/AnswersService';
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
+import { findAnswersByUser, getAnswersByUser } from '../../../services/AnswersService';
 import CardAnswer from '../../layouts/CardAnswer';
 import Navbar from '../../layouts/Navbar';
-import Load from '../../layouts/Load';
-import Styles from '../../styles/Styles'
-import Svg, { Path } from 'react-native-svg';
 import SearchInput from '../../layouts/SearchInput';
+import Styles from '../../styles/Styles';
+
 
 export default function AnswersByUser({ route, navigation }) {
 
@@ -104,7 +103,7 @@ export default function AnswersByUser({ route, navigation }) {
         })()
         }
 
-        {visibleLoad ? <Load /> : answers.map(answer => {
+        {visibleLoad ? <ActivityIndicator  style={{ marginTop: 10}} size="large" color={'#0AAD7C'} /> : answers.map(answer => {
 
           return (
             <TouchableOpacity

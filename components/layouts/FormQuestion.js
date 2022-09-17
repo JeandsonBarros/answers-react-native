@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import TextInputCustom from "./TextInputCustom";
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
 import Styles from '../styles/Styles';
+import TextInputCustom from './TextInputCustom';
 
 function FormQuestion({ buttonText, actionButton, questionUpdate }) {
 

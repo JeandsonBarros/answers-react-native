@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { getAnswers } from '../../../services/AnswersService';
 import { deleteQuestion, findQuestionByUser, getQuestionsByUser } from '../../../services/QuestionsService';
 import CardQuestion from '../../layouts/CardQuestion';
-import Load from '../../layouts/Load';
 import Navbar from '../../layouts/Navbar';
+import SearchInput from '../../layouts/SearchInput';
 import Styles from '../../styles/Styles';
 import QuestionsStyles from './QuestionsStyles';
-import SearchInput from '../../layouts/SearchInput';
 
 function QuestionsByUser({ route, navigation }) {
 
@@ -22,19 +21,20 @@ function QuestionsByUser({ route, navigation }) {
     useEffect(() => {
 
         navigation.addListener('focus', () => {
-            listQuestions(1)
-            setSearch('')
-            setPage(1)
+            search.length > 0 ? searchQuestion(search, 1) : listQuestions(1)
         });
 
-        listQuestions(1)
+        search.length > 0 ? searchQuestion(search, 1) : listQuestions(1)
 
     }, [])
 
     async function listQuestions(pageParam) {
 
+        setVisibleLoad(true)
+
         const data = await getQuestionsByUser(pageParam)
         setTotalPage(data.total_pages)
+        setPage(data.page)
 
         if (pageParam == 1)
             setQuestions(data.questions)
@@ -45,21 +45,13 @@ function QuestionsByUser({ route, navigation }) {
 
     }
 
-    async function pagination() {
+    async function pagination(pageParam) {
 
-        const pageTemp = page + 1
+        if (search.length > 0) {
+            searchQuestion(search, pageParam)
 
-        if (pageTemp <= totalPage) {
-
-            setPage(pageTemp)
-
-            if (search.length > 0) {
-                searchQuestion(search, pageTemp)
-
-            } else {
-                listQuestions(pageTemp)
-            }
-
+        } else {
+            listQuestions(pageParam)
         }
 
     }
@@ -69,8 +61,12 @@ function QuestionsByUser({ route, navigation }) {
         setSearch(searchParam)
 
         if (searchParam.length > 0) {
+
+            setVisibleLoad(true)
+
             const data = await findQuestionByUser(searchParam, pageParam)
             setTotalPage(data.total_pages)
+            setPage(data.page)
 
             if (pageParam == 1)
                 setQuestions(data.questions)
@@ -78,11 +74,12 @@ function QuestionsByUser({ route, navigation }) {
                 setQuestions(questions.concat(data.questions))
             }
 
-        } else {
+            return setVisibleLoad(false)
 
-            setPage(1)
-            listQuestions(1)
         }
+
+        await listQuestions(1)
+
     }
 
     function confirmDelete(id, text) {
@@ -96,7 +93,8 @@ function QuestionsByUser({ route, navigation }) {
                 text: 'Deletar', onPress: async () => {
                     const message = await deleteQuestion(id)
                     alert(message)
-                    listQuestions()
+
+                    search.length > 0 ? searchQuestion(search, 1) : listQuestions(1)
                 }
             },
         ]);
@@ -161,48 +159,36 @@ function QuestionsByUser({ route, navigation }) {
 
             <ScrollView style={{ height: '100%', marginBottom: 70 }}>
 
-                {visibleLoad ?
-                    <Load />
-                    :
-                    questions.map(item => {
-                        return (
-                            renderItem(item)
-                        )
-                    })
-                }
+                {questions.map(renderItem)}
 
-                {!(page == totalPage) && <TouchableOpacity
-                    onPress={pagination}
-                    style={{
-                        backgroundColor: '#0AAD7C',
-                        borderRadius: 10,
-                        margin: 15,
-                        padding: 10
-                    }}
+                {visibleLoad && <ActivityIndicator style={{ marginTop: 10 }} size="large" color={'#0AAD7C'} />}
+
+                {(totalPage > page) && <TouchableOpacity
+                    onPress={() => pagination(page + 1)}
+                    style={Styles.buttonPagination}
                 >
-                    <Text style={{
-                        color: '#fff',
-                        fontSize: 20,
-                        textAlign: 'center',
-                    }}> Mostrar mais + </Text>
+                    <Text style={Styles.textButtonPagination}>
+                        Mostrar mais +
+                    </Text>
 
                 </TouchableOpacity>}
 
             </ScrollView>
 
-            {/* {visibleLoad ?
-                <Load />
-                :
-                <FlatList
-                    onEndReached={pagination}
-                    onEndReachedThreshold={0.1}
-                    style={{ marginBottom: 80 }}
-                    data={questions}
-                    keyExtractor={item => item.id}
-                    renderItem={renderItem}
-                />
-            }
+
+            {/* <FlatList
+                onEndReached={pagination}
+                onEndReachedThreshold={0.1}
+                style={{ marginBottom: 80 }}
+                data={questions}
+                keyExtractor={item => item.id}
+                renderItem={renderItem}
+            />
+
+            {visibleLoad && <ActivityIndicator style={{ marginTop: 10 }} size="large" color={'#0AAD7C'} />}
+
             */}
+
 
             <TouchableOpacity
                 style={QuestionsStyles.addButton}

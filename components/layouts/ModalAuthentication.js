@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import StylesLayouts from './StylesLayouts';
 import TextInputCustom from "./TextInputCustom";
+import PasswordInput from './PasswordInput';
 
 function ModalAuthentication({ setModalVisible, modalVisible, action }) {
 
@@ -45,15 +46,15 @@ function ModalAuthentication({ setModalVisible, modalVisible, action }) {
                         onChangeText={setEmail}
                         value={email}
                         placeholder="exemplo@email.com"
-                       
+
                     />
 
-                    <TextInputCustom
+                   
+                    <PasswordInput
                         label="Senha"
                         onChangeText={setPassword}
                         value={password}
                         placeholder="Senha12345"
-                        secureTextEntry={true}
                     />
 
                     <View

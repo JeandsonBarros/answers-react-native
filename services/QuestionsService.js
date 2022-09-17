@@ -2,10 +2,16 @@ import { getToken } from "./TokenService"
 
 export async function getAllQuestions(page) {
 
-    const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions?page=${page}`)
-    const data = await response.json()
+    try {
 
-    return data
+        const response = await fetch(`https://api-suas-questoes.herokuapp.com/questions?page=${page}`)
+        const data = await response.json()
+
+        return data
+
+    } catch (error) {
+        console.log(error);
+    }
 
 }
 

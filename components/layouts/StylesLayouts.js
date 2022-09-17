@@ -153,7 +153,7 @@ export default StyleSheet.create({
 
     viewCardQuantity: {
         position: 'absolute',
-        width:'100%',
+        width: '100%',
         bottom: 10,
         alignItems: 'center',
         flexDirection: 'row',
@@ -209,7 +209,12 @@ export default StyleSheet.create({
 
     /* =========== Start input password ===========  */
 
-    
+    eyeButton: {
+        position: 'absolute',
+        right: 20,
+        alignItems: 'center',
+        top: 37
+    }
 
     /* =========== End input password ===========  */
 

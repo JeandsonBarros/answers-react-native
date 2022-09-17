@@ -134,13 +134,11 @@ export async function deleteAccount(email, password) {
 
         }
 
-        console.log(fetchData);
-
+    
         const response = await fetch(`https://api-suas-questoes.herokuapp.com/auth/delete/${email}`, fetchData)
         const data = await response.json()
 
-        console.log(data);
-
+    
         if(data.message=='Usuário deletado!')
         {
           await logout()

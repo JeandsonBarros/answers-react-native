@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import Navbar from '../../layouts/Navbar';
 import CardAnswer from '../../layouts/CardAnswer';
 import Styles from "../../styles/Styles";
 import { getAnswersLikes } from "../../../services/LikesService"
-import Load from '../../layouts/Load';
+
 
 function LikesAnswers({ route, navigation }) {
 
@@ -20,7 +20,7 @@ function LikesAnswers({ route, navigation }) {
     }, [])
 
     async function selectAnswers(pageParam) {
-      
+
         try {
             const data = await getAnswersLikes(pageParam)
 
@@ -40,7 +40,9 @@ function LikesAnswers({ route, navigation }) {
         <View style={Styles.container}>
             <ScrollView style={{ height: '100%', marginBottom: 70 }}>
 
-                { visibleLoad? <Load/> :
+                {visibleLoad ?
+                    <ActivityIndicator style={{ marginTop: 10 }} size="large" color={'#0AAD7C'} />
+                    :
                     answers.map(answer => {
                         return (
                             <TouchableOpacity
