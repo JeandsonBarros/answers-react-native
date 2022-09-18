@@ -11,6 +11,7 @@ function SearchInput({ placeholder, value, onChangeText }) {
             </Svg>
 
             <TextInput
+                style={Styles.textInputSearch}
                 placeholder={placeholder}
                 value={value}
                 onChangeText={onChangeText}

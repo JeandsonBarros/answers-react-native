@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
-import Navbar from '../../layouts/Navbar';
 import CardAnswer from '../../layouts/CardAnswer';
 import Styles from "../../styles/Styles";
 import { getAnswersLikes } from "../../../services/LikesService"
@@ -15,8 +14,11 @@ function LikesAnswers({ route, navigation }) {
 
     useEffect(() => {
 
-        selectAnswers(1)
+        navigation.addListener('focus', () => {
+            selectAnswers(1)
+        });
 
+        selectAnswers(1)
     }, [])
 
     async function selectAnswers(pageParam) {
@@ -24,7 +26,11 @@ function LikesAnswers({ route, navigation }) {
         try {
             const data = await getAnswersLikes(pageParam)
 
-            setAnswers(answers.concat(data.answers))
+            if (pageParam == 1)
+                setAnswers(data.answers)
+            else
+                setAnswers(answers.concat(data.answers))
+
             setPage(data.page)
             setTotalPage(data.total_pages)
 
@@ -38,7 +44,7 @@ function LikesAnswers({ route, navigation }) {
     return (
 
         <View style={Styles.container}>
-            <ScrollView style={{ height: '100%', marginBottom: 70 }}>
+            <ScrollView style={{ height: '100%' }}>
 
                 {visibleLoad ?
                     <ActivityIndicator style={{ marginTop: 10 }} size="large" color={'#0AAD7C'} />
@@ -71,11 +77,6 @@ function LikesAnswers({ route, navigation }) {
                     </TouchableOpacity>}
 
             </ScrollView>
-
-            <Navbar
-                navigation={navigation}
-                route={route}
-            />
 
         </View>
     );

@@ -4,6 +4,7 @@ import Svg, { Path } from 'react-native-svg';
 import { getAsAnswersLikes, getQuantyLikes, postAnswersLikes, deleteAnswersLikes } from "../../services/LikesService"
 import StylesLayouts from './StylesLayouts';
 import Moment from 'moment';
+import { asToken } from '../../services/TokenService';
 
 export default function CardAnswer({ id, title, content, date }) {
 
@@ -89,7 +90,14 @@ export default function CardAnswer({ id, title, content, date }) {
                 </Text>
 
                 <TouchableOpacity
-                    onPress={() => { asLike ? removeAnswersLikes() : saveAnswersLikes() }}
+                    onPress={async () => {
+
+                        const asUserToken = await asToken()
+                        if (!asUserToken)
+                            return alert('Entre ou cadastre-se para curtir uma resposta.')
+
+                        asLike ? removeAnswersLikes() : saveAnswersLikes()
+                    }}
                     style={{ flexDirection: 'row', alignItems: 'center' }}>
                     {asLike ?
                         <Svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="#0AAD7C" class="bi bi-heart-fill" viewBox="0 0 16 16">

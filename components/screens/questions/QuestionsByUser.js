@@ -5,15 +5,15 @@ import Svg, { Path } from 'react-native-svg';
 import { getAnswers } from '../../../services/AnswersService';
 import { deleteQuestion, findQuestionByUser, getQuestionsByUser } from '../../../services/QuestionsService';
 import CardQuestion from '../../layouts/CardQuestion';
-import Navbar from '../../layouts/Navbar';
 import SearchInput from '../../layouts/SearchInput';
 import Styles from '../../styles/Styles';
 import QuestionsStyles from './QuestionsStyles';
 
-function QuestionsByUser({ route, navigation }) {
+function QuestionsByUser({ navigation }) {
 
     const [questions, setQuestions] = useState([]);
     const [visibleLoad, setVisibleLoad] = useState(true);
+    const [inSearch, setInSearch] = useState(false);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
@@ -21,10 +21,12 @@ function QuestionsByUser({ route, navigation }) {
     useEffect(() => {
 
         navigation.addListener('focus', () => {
-            search.length > 0 ? searchQuestion(search, 1) : listQuestions(1)
+            setSearch('')
+            setInSearch(false)
+            listQuestions(1)   
         });
 
-        search.length > 0 ? searchQuestion(search, 1) : listQuestions(1)
+        listQuestions(1)
 
     }, [])
 
@@ -59,7 +61,7 @@ function QuestionsByUser({ route, navigation }) {
     async function searchQuestion(searchParam, pageParam) {
 
         setSearch(searchParam)
-
+        setInSearch(true)
         if (searchParam.length > 0) {
 
             setVisibleLoad(true)
@@ -78,7 +80,7 @@ function QuestionsByUser({ route, navigation }) {
 
         }
 
-        await listQuestions(1)
+        setQuestions([])
 
     }
 
@@ -152,12 +154,33 @@ function QuestionsByUser({ route, navigation }) {
                 placeholder='Buscar questão por enunciado'
                 value={search}
                 onChangeText={text => {
-                    setPage(1)
                     searchQuestion(text, 1)
                 }}
             />
 
-            <ScrollView style={{ height: '100%', marginBottom: 70 }}>
+            {inSearch &&
+                <TouchableOpacity
+                    onPress={() => {
+                        setInSearch(false)
+                        setSearch('')
+                        listQuestions(1)
+                    }}
+                    style={Styles.exitSearch}
+                >
+                    <Text
+                        style={Styles.textExiteSearch}>
+                        Sair da busca
+                    </Text>
+                </TouchableOpacity>
+            }
+
+            <ScrollView style={{ height: '100%' }}>
+
+                {(!visibleLoad && questions.length == 0) &&
+                    <Text style={{ textAlign: 'center', margin: 10 }}>
+                        Nem uma questão encontrada.
+                    </Text>
+                }
 
                 {questions.map(renderItem)}
 
@@ -198,11 +221,6 @@ function QuestionsByUser({ route, navigation }) {
                     <Path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
                 </Svg>
             </TouchableOpacity>
-
-            <Navbar
-                navigation={navigation}
-                route={route}
-            />
 
         </View>);
 }

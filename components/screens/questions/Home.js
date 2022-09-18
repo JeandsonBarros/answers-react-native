@@ -6,7 +6,7 @@ import { asToken } from '../../../services/TokenService';
 import { getAnswers } from '../../../services/AnswersService';
 import { findQuestion, getAllQuestions } from '../../../services/QuestionsService';
 import CardQuestion from '../../layouts/CardQuestion';
-import Navbar from '../../layouts/Navbar';
+
 import QuestionsStyles from './QuestionsStyles';
 import SearchInput from '../../layouts/SearchInput';
 import Styles from '../../styles/Styles';
@@ -15,7 +15,7 @@ import Styles from '../../styles/Styles';
 export default function Home({ route, navigation }) {
 
     const [questions, setQuestions] = useState([]);
-    const [questionsSearch, setQuestionsSearch] = useState([]);
+    const [inSearch, setInSearch] = useState(false);
     const [visibleLoad, setVisibleLoad] = useState(true);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
@@ -24,10 +24,12 @@ export default function Home({ route, navigation }) {
     useEffect(() => {
 
         navigation.addListener('focus', () => {
-            search.length > 0 ? searchQuestion(search, 1) : listQuestions(1)
+           setSearch('')
+           listQuestions(1)
+           setInSearch(false)
         });
 
-        search.length > 0 ? searchQuestion(search, 1) : listQuestions(1)
+        listQuestions(1)
 
     }, [])
 
@@ -63,7 +65,7 @@ export default function Home({ route, navigation }) {
     async function searchQuestion(searchParam, pageParam) {
 
         setSearch(searchParam)
-
+        setInSearch(true)
         if (searchParam.length > 0) {
 
             setVisibleLoad(true)
@@ -73,17 +75,17 @@ export default function Home({ route, navigation }) {
             setPage(data.page)
 
             if (pageParam == 1) {
-                setQuestionsSearch(data.questions)
+                setQuestions(data.questions)
             }
             else {
-                setQuestionsSearch(questions.concat(data.questions))
+                setQuestions(questions.concat(data.questions))
             }
 
             return setVisibleLoad(false)
 
         }
 
-        await listQuestions(1)
+        setQuestions([])
 
     }
 
@@ -117,11 +119,33 @@ export default function Home({ route, navigation }) {
                 }}
             />
 
-            <ScrollView style={{ marginBottom: 70 }}>
+            {inSearch &&
+                <TouchableOpacity
+                    onPress={() => {
+                        setInSearch(false)
+                        setSearch('')
+                        listQuestions(1)
+                    }}
+                    style={Styles.exitSearch}
+                >
+                    <Text
+                        style={Styles.textExiteSearch}>
+                        Sair da busca
+                    </Text>
+                </TouchableOpacity>
+            }
 
-                <Text style={QuestionsStyles.titleHome}>Questões</Text>
+            <ScrollView >
 
-                {search.length > 0 ? questionsSearch.map(mapQuestions) : questions.map(mapQuestions)}
+
+
+                {(!visibleLoad && questions.length == 0) &&
+                    <Text style={{ textAlign: 'center', margin: 10 }}>
+                        Nem uma questão encontrada.
+                    </Text>
+                }
+
+                {questions.map(mapQuestions)}
 
                 {visibleLoad && <ActivityIndicator style={{ marginTop: 10 }} size="large" color={'#0AAD7C'} />}
 
@@ -146,13 +170,6 @@ export default function Home({ route, navigation }) {
                     <Path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
                 </Svg>
             </TouchableOpacity>
-
-            <Navbar
-                navigation={navigation}
-                route={route}
-            />
-
-            <StatusBar style="auto" />
 
         </View>
     );

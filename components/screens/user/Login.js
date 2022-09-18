@@ -39,7 +39,7 @@ function Login({ navigation }) {
             <ScrollView style={{ width: '100%' }}>
 
                 <Text style={UserStyles.logo} >
-                    Questões <Text style={UserStyles.lastcharacterLogo}>?</Text>
+                    Answers  <Text style={UserStyles.lastcharacterLogo}>?</Text>
                 </Text>
 
                 <View

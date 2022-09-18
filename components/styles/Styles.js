@@ -5,7 +5,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-      },
+    },
 
     title: {
         fontSize: 16,
@@ -63,7 +63,7 @@ export default StyleSheet.create({
         height: 45,
         alignItems: 'center',
 
-        backgroundColor: '#e9e9e9',
+        backgroundColor: '#fff',
         flexDirection: 'row',
 
         zIndex: 2,
@@ -81,8 +81,19 @@ export default StyleSheet.create({
     },
 
     textInputSearch: {
-        width: '90%',
+        width: '95%',
         height: '100%',
+    },
+
+    exitSearch: {
+        backgroundColor: '#0AAD7C',
+    },
+
+    textExiteSearch: {
+        fontSize: 18,
+        textAlign: 'center',
+        margin: 5,
+        color: '#fff'
     },
 
     buttonPagination: {
@@ -92,7 +103,7 @@ export default StyleSheet.create({
         padding: 10
     },
 
-    textButtonPagination:{
+    textButtonPagination: {
         color: '#fff',
         fontSize: 20,
         textAlign: 'center',
