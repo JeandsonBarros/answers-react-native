@@ -111,6 +111,12 @@ function QuestionsStackScreen() {
       />
 
       <QuestionsStack.Screen
+        name="Question"
+        component={Question}
+        options={{ title: 'Questão' }}
+      />
+
+      <QuestionsStack.Screen
         name="UpdateQuestion"
         component={UpdateQuestion}
         options={{ title: 'Editar questão' }}
@@ -135,6 +141,12 @@ function AnswersStackScreen() {
         })}
       />
 
+      <AnswersStack.Screen
+        name="Question"
+        component={Question}
+        options={{ title: 'Questão' }}
+      />
+
     </AnswersStack.Navigator>
   )
 }
@@ -151,6 +163,12 @@ function LikeStackScreen() {
           title: 'Respostas que você curtiu',
           headerRight: () => <HeaderRight navigation={navigation} />,
         })}
+      />
+
+      <LikeStack.Screen
+        name="Question"
+        component={Question}
+        options={{ title: 'Questão' }}
       />
     </LikeStack.Navigator>
   )

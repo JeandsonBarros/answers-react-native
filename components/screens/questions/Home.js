@@ -1,15 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { asToken } from '../../../services/TokenService';
+
 import { getAnswers } from '../../../services/AnswersService';
 import { findQuestion, getAllQuestions } from '../../../services/QuestionsService';
+import { asToken } from '../../../services/TokenService';
 import CardQuestion from '../../layouts/CardQuestion';
-
-import QuestionsStyles from './QuestionsStyles';
 import SearchInput from '../../layouts/SearchInput';
 import Styles from '../../styles/Styles';
+import QuestionsStyles from './QuestionsStyles';
 
 
 export default function Home({ route, navigation }) {
@@ -24,12 +23,16 @@ export default function Home({ route, navigation }) {
     useEffect(() => {
 
         navigation.addListener('focus', () => {
-           setSearch('')
-           listQuestions(1)
-           setInSearch(false)
+            setSearch('')
+            listQuestions(1)
+            setInSearch(false)
         });
 
         listQuestions(1)
+
+        return () => {
+            listQuestions(1)
+        }
 
     }, [])
 

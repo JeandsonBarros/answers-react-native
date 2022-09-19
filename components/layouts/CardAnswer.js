@@ -16,6 +16,11 @@ export default function CardAnswer({ id, title, content, date }) {
         asAnswersLikes()
         quantyLikes()
 
+        return () => {
+            asAnswersLikes()
+            quantyLikes()
+        };
+
     }, [])
 
     async function asAnswersLikes() {

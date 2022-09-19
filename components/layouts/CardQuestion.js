@@ -16,6 +16,13 @@ export default function CardQuestion({ id, title, content, getQuantity, date }) 
             setQuantityState(response.count)
         })
 
+        return () => {
+            getQuantity(id, 1).then(response => {
+
+                setQuantityState(response.count)
+            })
+        }
+
     }, [])
 
     return (

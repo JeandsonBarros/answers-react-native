@@ -42,6 +42,12 @@ export default function Question({ route, navigation }) {
 
         selectQuestion()
 
+        return () => { 
+            selectAnswers(1)
+
+            selectQuestion()
+         };
+
     }, [questionId])
 
     /* Start Functions for authenticated user suggested response */
@@ -132,8 +138,11 @@ export default function Question({ route, navigation }) {
     async function selectAnswers(pageParam) {
         try {
             const data = await getAnswers(questionId, pageParam)
-           
-            setAnswers(answers.concat(data.answers))
+
+            if (pageParam == 1)
+                setAnswers(data.answers)
+            else
+                setAnswers(answers.concat(data.answers))
 
             setPage(data.page)
             setTotalPages(data.total_pages)
